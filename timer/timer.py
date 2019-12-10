@@ -38,7 +38,7 @@ class Stopwatch:
     def __str__(self):
         seconds = int(time.time() - self.start - self.pausedDuration)
         s = seconds % 60
-        m = seconds // 60
+        m = seconds // 60 % 60
         h = seconds // 3600
         return "{:02}:{:02}:{:02}".format(h, m, s)
 
