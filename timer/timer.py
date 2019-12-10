@@ -39,7 +39,7 @@ class Stopwatch:
         seconds = int(time.time() - self.start - self.pausedDuration)
         s = seconds % 60
         m = seconds // 60
-        h = seconds // 360
+        h = seconds // 3600
         return "{:02}:{:02}:{:02}".format(h, m, s)
 
     def timer(self):
@@ -59,8 +59,6 @@ class Stopwatch:
             if self.lastPaused == 0:
                 self.lastPaused = time.time()
                 print("paused")
-        time.sleep(1)
-        self.timer()
 
     def calcPaused(self):
         if self.lastPaused != 0:
@@ -68,9 +66,15 @@ class Stopwatch:
             self.lastPaused = 0
 
 
-def run():
+def runThread():
     s = Stopwatch()
-    t = threading.Thread(target=s.timer)
+    while getAtomic != -2:
+        s.timer()
+        time.sleep(1)
+
+
+def run():
+    t = threading.Thread(target=runThread)
     t.start()
     while 1:
         input()
