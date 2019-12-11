@@ -31,7 +31,7 @@ def getAtomic():
 class Stopwatch:
 
     def __init__(self):
-        self.start = time.time()
+        self.start = time.time() - 1200
         self.lastPaused = 0
         self.pausedDuration = 0
 
@@ -47,7 +47,7 @@ class Stopwatch:
         # quit
         if p == -1:
             self.calcPaused()
-            print("\nFinal Time: {}".format(str(self)))
+            print("\nFinal Time: {}".format(self.finalTime()))
             swapAtomic(stopped=True)
             return
         # not paused
@@ -59,6 +59,12 @@ class Stopwatch:
             if self.lastPaused == 0:
                 self.lastPaused = time.time()
                 print("paused")
+
+    def finalTime(self):
+        seconds = int(time.time() - self.start - self.pausedDuration)
+        m = seconds // 60 % 60 * 5 // 3
+        h = seconds // 3600
+        return "{}.{:02}hrs".format(h, m)
 
     def calcPaused(self):
         if self.lastPaused != 0:
