@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import threading
 import time
 import sys
@@ -31,7 +32,7 @@ def getAtomic():
 class Stopwatch:
 
     def __init__(self):
-        self.start = time.time() - 1200
+        self.start = time.time()# - 1200
         self.lastPaused = 0
         self.pausedDuration = 0
 
