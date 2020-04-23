@@ -36,6 +36,7 @@ under1 = 0
 over1 = 0
 over300 = 0
 about10 = 0
+about10sum = 0
 while len(fees) < 10000:
     for tx in block.rawTx[1:]:
         fee = sum(vin.amountIn for vin in tx.vin) - sum(vout.value for vout in tx.vout)
@@ -55,13 +56,14 @@ while len(fees) < 10000:
         if r > 9.9 and r < 15.1:
             print("between 10 15", r)
             about10 += 1
+            about10sum += r
     block = node.getBlock(block.previousHash, verboseTx=True)
 
 n = len(fees)
 print("all", n)
 print("under1", under1)
 print("over1", over1)
-print("about10", about10, about10/over1)
+print("about10", about10, about10/over1, about10sum/about10)
 print("over300", over300)
 
 plt.hist(fees, bins=100, rwidth=0.8, color="#333333")
