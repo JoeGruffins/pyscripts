@@ -22,6 +22,11 @@ def main():
     print(addrPKH.string())
     addrPKH = addrlib.AddressPubKeyHash(h, simnet)
     print(addrPKH.string())
+    h = "rltc1qzhe0hmteg5u6ap7488vq9f3wtqsx4ma9dps9t4"
+    r = "bcrt1q322tg0y2hzyp9zztr7d2twdclhqg88anvzxwwr"
+    #b = b58decode(h)
+    print([x for x in h.encode("utf_8")])
+    print([x for x in r.encode("utf_8")])
 
 
 main()
