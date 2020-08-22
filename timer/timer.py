@@ -17,7 +17,7 @@ timeTXT = f"{appDir}/time.txt"
 today = date.today().strftime("%d")
 Path(appDir).mkdir(parents=True, exist_ok=True)
 if not os.path.exists(timeTXT):
-    with open(timeTXT, "w+") as f:
+    with open(timeTXT, "w") as f:
         data = {"day": today, "duration": 0}
         json.dump(data, f, ensure_ascii=False, indent=4)
 
