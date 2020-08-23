@@ -2,7 +2,8 @@ var tc = require('trezor-connect').default;
 var DEVICE_EVENT = require('trezor-connect').DEVICE_EVENT;
 var DEVICE = require('trezor-connect').DEVICE;
 const hardeningConstant = 0x80000000;
-const coin = "decred"
+const coin = "dcrtest"
+const coinType = 1
 
 async function main() {
   function init() {
@@ -20,7 +21,7 @@ async function main() {
   function getAddr() {
     const path = [
       (44 | hardeningConstant) >>> 0, // purpose
-      (42 | hardeningConstant) >>> 0, // coin type
+      (coinType | hardeningConstant) >>> 0, // coin type
       (0 | hardeningConstant) >>> 0, // account
       0, // branch
       0  // index
@@ -33,11 +34,12 @@ async function main() {
     })
   }
   function getAcct() {
-    var path = [
+    const path = [
       (44 | hardeningConstant) >>> 0, // purpose
-      (42 | hardeningConstant) >>> 0, // coin type
-      (0 | hardeningConstant) >>> 0, // account
+      (coinType | hardeningConstant) >>> 0, // coin type
+      (0 | hardeningConstant) >>> 0 // account
     ]
+    console.log(path)
     return tc.getPublicKey({
       path: path,
       coin: coin,
@@ -46,16 +48,17 @@ async function main() {
   }
   try {
     await init()
+    //tc.on(DEVICE_EVENT, (event) => {
+	  //  console.log(event.type)
+    //});
     let res = await getAddr()
     console.log("Address: %s", res.payload.address)
     res = await getAcct()
-    console.log(res.payload)
+    console.log(res.payload.xpub)
   } catch(e) {
+    console.log("errored")
     console.log(e);
   }
 }
 
 main()
-//tc.on(DEVICE_EVENT, (event) => {
-//	console.log(event)
-//});
